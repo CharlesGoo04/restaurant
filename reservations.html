@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservations | Maison Restaurant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a1a1a;
+            --accent-color: #C5A572;
+            --text-light: #ffffff;
+            --text-dark: #1a1a1a;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-light);
+            background-color: var(--primary-color);
+            line-height: 1.6;
+        }
+
+        .header {
+            position: fixed;
+            width: 100%;
+            padding: 1.5rem 3rem;
+            background-color: rgba(26, 26, 26, 0.95);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-light);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color);
+        }
+
+        .reservation-hero {
+            height: 50vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/private-dining.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .booking-section {
+            max-width: 1200px;
+            margin: -100px auto 4rem;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .booking-container {
+            background: #1f1f1f;
+            border-radius: 8px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .booking-tabs {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 1rem;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 0.5rem 0;
+            position: relative;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1rem;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent-color);
+        }
+
+        .booking-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-size: 0.9rem;
+            color: var(--accent-color);
+        }
+
+        .form-group input, .form-group select {
+            padding: 0.8rem;
+            background: #2a2a2a;
+            border: 1px solid #333;
+            color: var(--text-light);
+            border-radius: 4px;
+        }
+
+        .cta-button {
+            background: var(--accent-color);
+            color: var(--text-dark);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            margin-top: 2rem;
+            width: 100%;
+        }
+
+        .cta-button:hover {
+            background: #d4b684;
+        }
+
+        .private-dining {
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .dining-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .dining-option {
+            background: #1f1f1f;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: left;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(197, 165, 114, 0.2);
+        }
+
+        .dining-option:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+        }
+
+        .dining-option h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+            border-bottom: 1px solid rgba(197, 165, 114, 0.2);
+            padding-bottom: 0.5rem;
+        }
+
+        .option-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .option-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0.5rem 0;
+        }
+
+        .feature-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .feature-list li::before {
+            content: '•';
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+        }
+
+        .price-indicator {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            font-style: italic;
+            margin: 0.5rem 0;
+        }
+
+        .availability-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .indicator-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4CAF50;
+        }
+
+        @media (max-width: 768px) {
+            .dining-options {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo">Maison</a>
+        <nav class="nav-menu">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="menu.html" class="nav-link">Menu</a>
+            <a href="reservations.html" class="nav-link">Reservations</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+    </header>
+
+    <section class="reservation-hero">
+        <div class="hero-content">
+            <h1>Reserve Your Experience</h1>
+            <p>Join us for an unforgettable culinary journey</p>
+        </div>
+    </section>
+
+    <section class="booking-section">
+        <div class="booking-container">
+            <div class="booking-tabs">
+                <button class="tab-btn active" data-tab="standard">Standard Reservation</button>
+                <button class="tab-btn" data-tab="private">Private Dining</button>
+                <button class="tab-btn" data-tab="events">Events</button>
+            </div>
+            
+            <!-- Standard Reservation Form -->
+            <form class="booking-form active" id="standardForm" data-form="standard">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label>Time</label>
+                    <select name="time" required>
+                        <option value="">Select time</option>
+                        <option>6:00 PM</option>
+                        <option>6:30 PM</option>
+                        <option>7:00 PM</option>
+                        <option>7:30 PM</option>
+                        <option>8:00 PM</option>
+                        <option>8:30 PM</option>
+                        <option>9:00 PM</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Party Size</label>
+                    <select name="guests" required>
+                        <option value="">Select guests</option>
+                        <option>1 Guest</option>
+                        <option>2 Guests</option>
+                        <option>3 Guests</option>
+                        <option>4 Guests</option>
+                        <option>5-6 Guests</option>
+                        <option>7-8 Guests</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label>Special Requests</label>
+                    <textarea name="requests" rows="3" placeholder="Any dietary restrictions or special requests?"></textarea>
+                </div>
+                <button type="submit" class="cta-button">Make Reservation</button>
+            </form>
+
+            <!-- Private Dining Form -->
+            <form class="booking-form" id="privateForm" data-form="private" style="display: none;">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label>Private Dining Space</label>
+                    <select name="space" required>
+                        <option value="">Select dining space</option>
+                        <option>Chef's Table (up to 8 guests)</option>
+                        <option>Wine Cellar (up to 12 guests)</option>
+                        <option>Grand Room (up to 30 guests)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Preferred Date</label>
+                    <input type="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label>Preferred Time</label>
+                    <select name="time" required>
+                        <option value="">Select time</option>
+                        <option>6:00 PM</option>
+                        <option>6:30 PM</option>
+                        <option>7:00 PM</option>
+                        <option>7:30 PM</option>
+                        <option>8:00 PM</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Number of Guests</label>
+                    <input type="number" name="guests" min="1" max="30" required>
+                </div>
+                <div class="form-group">
+                    <label>Contact Number</label>
+                    <input type="tel" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Occasion</label>
+                    <select name="occasion">
+                        <option value="">Select occasion (optional)</option>
+                        <option>Birthday</option>
+                        <option>Anniversary</option>
+                        <option>Business Dinner</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Additional Requirements</label>
+                    <textarea name="requirements" rows="3" placeholder="Menu preferences, dietary restrictions, or special arrangements"></textarea>
+                </div>
+                <button type="submit" class="cta-button">Request Private Dining</button>
+            </form>
+
+            <!-- Events Form -->
+            <form class="booking-form" id="eventsForm" data-form="events" style="display: none;">
+                <div class="form-group">
+                    <label>Organization/Contact Name</label>
+                    <input type="text" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label>Event Type</label>
+                    <select name="eventType" required>
+                        <option value="">Select event type</option>
+                        <option>Corporate Event</option>
+                        <option>Wedding Reception</option>
+                        <option>Birthday Celebration</option>
+                        <option>Product Launch</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Proposed Date</label>
+                    <input type="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label>Event Time</label>
+                    <select name="time" required>
+                        <option value="">Select time</option>
+                        <option>Lunch (11:00 AM - 3:00 PM)</option>
+                        <option>Dinner (6:00 PM - 10:00 PM)</option>
+                        <option>Full Day (11:00 AM - 10:00 PM)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Expected Number of Guests</label>
+                    <input type="number" name="guests" min="10" max="100" required>
+                </div>
+                <div class="form-group">
+                    <label>Contact Number</label>
+                    <input type="tel" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Budget Range</label>
+                    <select name="budget">
+                        <option value="">Select budget range</option>
+                        <option>$1,000 - $2,000</option>
+                        <option>$2,000 - $5,000</option>
+                        <option>$5,000 - $10,000</option>
+                        <option>Above $10,000</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Event Details</label>
+                    <textarea name="details" rows="4" placeholder="Please provide details about your event, including catering preferences, setup requirements, and any special arrangements needed"></textarea>
+                </div>
+                <button type="submit" class="cta-button">Submit Event Inquiry</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="private-dining">
+        <h2 class="section-title">Our Spaces & Events</h2>
+        <p>Create memorable moments in our exclusive venues</p>
+        
+        <div class="dining-options">
+            <!-- Private Dining Options -->
+            <div class="dining-option">
+                <h3>Chef's Table</h3>
+                <div class="option-details">
+                    <div class="option-icon">👨‍🍳</div>
+                    <p>An intimate dining experience for up to 8 guests, featuring a personalized tasting menu with wine pairings.</p>
+                    <ul class="feature-list">
+                        <li>Personalized menu consultation</li>
+                        <li>Wine pairing available</li>
+                        <li>Interactive chef experience</li>
+                    </ul>
+                    <div class="price-indicator">From $150 per person</div>
+                    <div class="availability-indicator">
+                        <span class="indicator-dot"></span>
+                        <span>Available for next week</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dining-option">
+                <h3>Wine Cellar</h3>
+                <div class="option-details">
+                    <div class="option-icon">🍷</div>
+                    <p>Private dining for up to 12 guests, surrounded by our curated wine collection.</p>
+                    <ul class="feature-list">
+                        <li>Sommelier service included</li>
+                        <li>Premium wine selection</li>
+                        <li>Customizable menu options</li>
+                    </ul>
+                    <div class="price-indicator">From $120 per person</div>
+                    <div class="availability-indicator">
+                        <span class="indicator-dot"></span>
+                        <span>Limited availability</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dining-option">
+                <h3>Grand Room</h3>
+                <div class="option-details">
+                    <div class="option-icon">🎉</div>
+                    <p>Perfect for corporate events and celebrations, accommodating up to 30 guests.</p>
+                    <ul class="feature-list">
+                        <li>Full venue customization</li>
+                        <li>AV equipment available</li>
+                        <li>Dedicated event coordinator</li>
+                    </ul>
+                    <div class="price-indicator">Custom pricing available</div>
+                    <div class="availability-indicator">
+                        <span class="indicator-dot"></span>
+                        <span>Available this month</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Tab switching functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const forms = document.querySelectorAll('.booking-form');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active tab
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Show corresponding form
+                const formType = btn.dataset.tab;
+                forms.forEach(form => {
+                    if (form.dataset.form === formType) {
+                        form.style.display = 'grid';
+                    } else {
+                        form.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Set minimum date to today for all date inputs
+        document.querySelectorAll('input[type="date"]').forEach(dateInput => {
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.min = today;
+        });
+
+        // Handle form submissions
+        document.querySelectorAll('.booking-form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(this);
+                const formType = this.dataset.form;
+                
+                // Create formatted message based on form type
+                let message = '';
+                
+                if (formType === 'standard') {
+                    message = `*Standard Reservation Request - Maison Restaurant*\n\n` +
+                        `👤 *Name:* ${formData.get('name')}\n` +
+                        `📅 *Date:* ${formData.get('date')}\n` +
+                        `🕒 *Time:* ${formData.get('time')}\n` +
+                        `👥 *Party Size:* ${formData.get('guests')}\n` +
+                        `📱 *Contact:* ${formData.get('phone')}\n` +
+                        `📝 *Special Requests:* ${formData.get('requests') || 'None'}\n\n` +
+                        `Thank you for choosing Maison Restaurant!`;
+                } else if (formType === 'private') {
+                    message = `*Private Dining Request - Maison Restaurant*\n\n` +
+                        `👤 *Name:* ${formData.get('name')}\n` +
+                        `🏰 *Space:* ${formData.get('space')}\n` +
+                        `📅 *Date:* ${formData.get('date')}\n` +
+                        `🕒 *Time:* ${formData.get('time')}\n` +
+                        `👥 *Guests:* ${formData.get('guests')}\n` +
+                        `📱 *Phone:* ${formData.get('phone')}\n` +
+                        `📧 *Email:* ${formData.get('email')}\n` +
+                        `🎉 *Occasion:* ${formData.get('occasion') || 'Not specified'}\n` +
+                        `📝 *Requirements:* ${formData.get('requirements') || 'None'}\n\n` +
+                        `We will contact you shortly to discuss your private dining request.`;
+                } else {
+                    message = `*Event Inquiry - Maison Restaurant*\n\n` +
+                        `👤 *Organization:* ${formData.get('name')}\n` +
+                        `🎊 *Event Type:* ${formData.get('eventType')}\n` +
+                        `📅 *Date:* ${formData.get('date')}\n` +
+                        `🕒 *Time:* ${formData.get('time')}\n` +
+                        `👥 *Expected Guests:* ${formData.get('guests')}\n` +
+                        `📱 *Phone:* ${formData.get('phone')}\n` +
+                        `📧 *Email:* ${formData.get('email')}\n` +
+                        `💰 *Budget:* ${formData.get('budget') || 'Not specified'}\n` +
+                        `📝 *Details:* ${formData.get('details') || 'None'}\n\n` +
+                        `Our events team will contact you to discuss your requirements.`;
+                }
+
+                // Handle Telegram contact
+                const telegramUrl = `https://t.me/+601110890755?text=${encodeURIComponent(message)}`;
+                window.location.href = telegramUrl;
+            });
+        });
+    </script>
+</body>
+</html> 

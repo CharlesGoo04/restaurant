@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Maison Restaurant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a1a1a;
+            --accent-color: #C5A572;
+            --text-light: #ffffff;
+            --text-dark: #1a1a1a;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-light);
+            background-color: var(--primary-color);
+            line-height: 1.6;
+        }
+
+        .header {
+            position: fixed;
+            width: 100%;
+            padding: 1.5rem 3rem;
+            background-color: rgba(26, 26, 26, 0.95);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-light);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color);
+        }
+
+        .about-hero {
+            height: 70vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/chef-cooking.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .story-section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .story-image {
+            position: relative;
+            height: 600px;
+        }
+
+        .story-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .story-content h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: var(--accent-color);
+        }
+
+        .story-content p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .chef-section {
+            background: #1f1f1f;
+            padding: 6rem 2rem;
+        }
+
+        .chef-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .chef-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .chef-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .chef-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .chef-card {
+            text-align: center;
+        }
+
+        .chef-image {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            overflow: hidden;
+        }
+
+        .chef-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .chef-info h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .chef-info .title {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .sustainability-section {
+            padding: 6rem 2rem;
+            background: url('images/farm-to-table.jpg') center/cover fixed;
+            position: relative;
+        }
+
+        .sustainability-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .sustainability-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .sustainability-content h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .value-item {
+            background: rgba(31, 31, 31, 0.8);
+            padding: 2rem;
+            border-radius: 8px;
+        }
+
+        .value-item h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo">Maison</a>
+        <nav class="nav-menu">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="menu.html" class="nav-link">Menu</a>
+            <a href="reservations.html" class="nav-link">Reservations</a>
+            <a href="about.html" class="nav-link">About</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+    </header>
+
+    <section class="about-hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Our Story</h1>
+            <p>A passion for culinary excellence since 1995</p>
+        </div>
+    </section>
+
+    <section class="story-section">
+        <div class="story-grid">
+            <div class="story-image">
+                <img src="C:\Users\User\Desktop\Web Template\Restaurant\R.jpeg" alt="Maison Interior">
+            </div>
+            <div class="story-content">
+                <h2>A Legacy of Excellence</h2>
+                <p>Founded in 1995 by renowned chef Jean-Pierre Dubois, Maison has been at the forefront of culinary innovation for over two decades. Our journey began with a simple yet powerful vision: to create extraordinary dining experiences that celebrate the artistry of fine cuisine.</p>
+                <p>Today, under the guidance of Executive Chef Marie Laurent, we continue to push boundaries while honoring traditional techniques and the finest seasonal ingredients.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="chef-section">
+        <div class="chef-container">
+            <div class="chef-header">
+                <h2>Meet Our Chefs</h2>
+                <p>The creative minds behind our culinary masterpieces</p>
+            </div>
+            <div class="chef-grid">
+                <div class="chef-card">
+                    <div class="chef-image">
+                        <img src="images/chef-marie.jpg" alt="Chef Marie Laurent">
+                    </div>
+                    <div class="chef-info">
+                        <h3>Marie Laurent</h3>
+                        <p class="title">Executive Chef</p>
+                        <p>With three Michelin stars to her name, Chef Marie brings her passion for innovative French cuisine to every dish.</p>
+                    </div>
+                </div>
+                <div class="chef-card">
+                    <div class="chef-image">
+                        <img src="images/chef-thomas.jpg" alt="Chef Thomas Chen">
+                    </div>
+                    <div class="chef-info">
+                        <h3>Thomas Chen</h3>
+                        <p class="title">Head Chef</p>
+                        <p>Specializing in fusion cuisine, Chef Thomas creates unique dishes that blend Eastern and Western flavors.</p>
+                    </div>
+                </div>
+                <div class="chef-card">
+                    <div class="chef-image">
+                        <img src="images/chef-sofia.jpg" alt="Chef Sofia Rodriguez">
+                    </div>
+                    <div class="chef-info">
+                        <h3>Sofia Rodriguez</h3>
+                        <p class="title">Pastry Chef</p>
+                        <p>Award-winning pastry chef Sofia brings artistry and innovation to our dessert menu.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="sustainability-section">
+        <div class="sustainability-overlay"></div>
+        <div class="sustainability-content">
+            <h2>Our Commitment to Sustainability</h2>
+            <p>We believe in responsible dining that respects both our guests and the environment.</p>
+            <div class="values-grid">
+                <div class="value-item">
+                    <h3>Farm to Table</h3>
+                    <p>We partner with local organic farms to source the freshest seasonal ingredients.</p>
+                </div>
+                <div class="value-item">
+                    <h3>Zero Waste</h3>
+                    <p>Our kitchen implements strict waste reduction practices and composting programs.</p>
+                </div>
+                <div class="value-item">
+                    <h3>Sustainable Seafood</h3>
+                    <p>We only serve seafood that meets strict sustainability standards.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html> 
